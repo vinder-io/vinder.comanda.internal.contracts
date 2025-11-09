@@ -20,7 +20,7 @@ public sealed class AbacatePayClient(HttpClient httpClient) : IAbacatePayClient
         var response = await httpClient.PostAsJsonAsync("pixQrCode/create", parameters, cancellation);
         var content = await response.Content.ReadAsStringAsync(cancellation);
 
-        if (response.IsSuccessStatusCode is false)
+        if (!response.IsSuccessStatusCode)
         {
             return Result<PixChargeSessionScheme>.Failure(AbacatePayErrors.OperationFailed);
         }
